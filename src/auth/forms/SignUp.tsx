@@ -15,8 +15,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { SignupValidationSchema } from "@/lib/validation";
 import { z } from "zod";
+import Loader from "@/components/ui/shared/Loader";
 
 const SignUp = () => {
+  const isLoading = false;
   const form = useForm<z.infer<typeof SignupValidationSchema>>({
     resolver: zodResolver(SignupValidationSchema),
     defaultValues: {
@@ -101,7 +103,13 @@ const SignUp = () => {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            Submit
+            {isLoading ? (
+              <div className="flex-center gap-2">
+                <Loader /> Loading...
+              </div>
+            ) : (
+              "Sign-up"
+            )}
           </Button>
         </form>
       </div>
